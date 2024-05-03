@@ -1,16 +1,9 @@
-#!/usr/bin/python3
-
-# This is the same as mjpeg_server.py, but uses the h/w MJPEG encoder.
-
 import io
 import logging
 import socketserver
-from http import server
-from threading import Condition
 import threading
 import numpy as np
 import time
-from mail_class import GenerateMail
 import os
 import json
 import importlib.resources as pkg_resources
@@ -21,6 +14,10 @@ from picamera2.encoders import H264Encoder
 from picamera2.outputs import CircularOutput, FileOutput
 from picamera2.encoders import JpegEncoder
 from datetime import datetime
+from http import server
+from threading import Condition
+from mail_class import GenerateMail
+
 
 PAGE = """\
 <html>
@@ -115,7 +112,7 @@ def handle_end_recording(circ, mse):
     return False
 
 VIDEO_SIZE_LIMIT = 10000000/2
-lsize = (320, 240)
+lsize = (640, 480)
 picam2 = Picamera2()
 video_config = picam2.create_video_configuration(main={"size": (1280, 720), "format": "RGB888"},
                                                  lores={"size": lsize, "format": "YUV420"})
