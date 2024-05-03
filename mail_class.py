@@ -26,8 +26,6 @@ class GenerateMail(object):
     def prepare_singleton(self):
         with open("config_mail.json") as config:
             gmail_cfg = json.load(config)
-#        json_file = open("/home/romain/Python_scripts/pycam/config_mail.json")
-#        gmail_cfg = json.load(json_file)
         self.smtp_server = gmail_cfg["server"]
         self.email_sender = gmail_cfg["from"]
         self.email_receiver = gmail_cfg["to"]

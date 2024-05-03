@@ -101,7 +101,7 @@ def server():
 
 def handling_mail_thread(mail, file_name):
     mail.prepare_mail(file_name)
-    #mail.send_mail()
+    mail.send_mail()
     mail.remove_message()
 
 def handle_end_recording(circ, mse):
@@ -166,10 +166,9 @@ while True:
             if encoding:
                 if time.time() - ltime > 5.0 or (video_name and os.stat(video_name).st_size>VIDEO_SIZE_LIMIT):
                     print("condition de fin de video ok")
-                    encoding = False
-                    #encoding = handle_end_recording(circ, mse)
-                    #email_thread_video = threading.Thread(target=handling_mail_thread, args=(mail, video_name))
-                    #email_thread_video.start()
+                    encoding = handle_end_recording(circ, mse)
+                    email_thread_video = threading.Thread(target=handling_mail_thread, args=(mail, video_name))
+                    email_thread_video.start()
     prev = cur
 
 picam2.stop_encoder()
